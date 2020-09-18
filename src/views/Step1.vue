@@ -11,7 +11,7 @@
         <p>-生年月日-</p>
         <div class="select">
           <select v-model="year">
-            <option v-for="aD in annoDomini" :key="aD.year" :value="aD.year">{{ aD.label }}</option>
+            <option v-for="calender in japaneseCalender" :key="calender.year" :value="calender.year">{{ calender.label }}</option>
           </select>
         </div><span>年</span>
         <div class="select">
@@ -41,25 +41,25 @@
         lastMonth: 12,
         month: 1,
         date: 1,
-        annoDomini: []
+        japaneseCalender: []
       };
     },
     mounted() {
-      this.annoDomini = this.genereate();
+      this.japaneseCalender = this.genereate();
     },
     methods: {
       genereate() {
-        const annoDomini = [];
+        const japaneseCalender = [];
         for (let y = 1930; y <= 2020; y++) {
           if (y <=  1988) {
-            annoDomini.push( {'year': y, 'label': `${y}年 (昭和${y-1925})`} );
+            japaneseCalender.push( {'year': y, 'label': `${y}年 (昭和${y-1925})`} );
           } else if (y <= 2018) {
-            annoDomini.push( {'year': y, 'label': `${y}年 (平成${y-1988})`} );
+            japaneseCalender.push( {'year': y, 'label': `${y}年 (平成${y-1988})`} );
           } else {
-            annoDomini.push( {'year': y, 'label': `${y}年 (令和${y-2018})`} );
+            japaneseCalender.push( {'year': y, 'label': `${y}年 (令和${y-2018})`} );
           }
         }
-        return annoDomini;
+        return japaneseCalender;
       },
       lastDate() {
         return new Date(this.year, this.month, 0).getDate();
