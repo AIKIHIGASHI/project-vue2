@@ -30,8 +30,7 @@
     </div>
     <div class="button-box">
       <router-link class="button is-success" to="/"><font-awesome-icon class="angle-left" icon="angle-left"/>前に戻る</router-link>
-      <router-link class="button is-success" v-if="q1 === '' || q2 === '' || q3 === ''" @click.native="keepOut()" to="">次に進む<font-awesome-icon  class="angle-right"  icon="angle-right"/></router-link>
-      <router-link class="button is-success" v-else to="/step3">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
+      <router-link class="button is-success" @click.native="nextPage()" to="">次に進む<font-awesome-icon  class="angle-right"  icon="angle-right"/></router-link>
     </div>
   </div>
 </template>
@@ -48,8 +47,12 @@
       };
     },
     methods: { 
-      keepOut() {
-        alert('未入力箇所があります');
+      nextPage() {
+        if (this.q1 === '' || this.q2 === '' || this.q3 === '') {
+          alert('未入力箇所があります');
+        } else {
+          this.$router.push('/step3');
+        }
       }
     }
   };
