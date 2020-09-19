@@ -11,17 +11,22 @@
     </div> 
     <div class="button-box">
       <router-link class="button is-success" to="/step2"><font-awesome-icon class="angle-left" icon="angle-left"/>前に戻る</router-link>
-      <router-link class="button is-success" to="">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
+      <router-link class="button is-success" to="/step4">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        consultation: ''
-      };
+    computed: {
+      consultation: {
+        get() {
+          return this.$store.getters.consultation;
+        },
+        set(value) {
+          this.$store.commit('updateConsultation', value);
+        }
+      }
     }
   };
 </script>

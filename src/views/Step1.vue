@@ -36,13 +36,43 @@
   export default {
     data() {
       return {
-        gender: '男性',
-        year: 1990,
         lastMonth: 12,
-        month: 1,
-        date: 1,
         japaneseCalender: []
       };
+    },
+    computed: {
+      gender: {
+        get() {
+          return this.$store.getters.gender;
+        },
+        set(value) {
+          this.$store.commit('updateGender', value);
+        }
+      },
+      year: {
+        get() {
+          return this.$store.getters.year;
+        },
+        set(value) {
+          this.$store.commit('updateYear', value);
+        }
+      },
+      month: {
+        get() {
+          return this.$store.getters.month;
+        },
+        set(value) {
+          this.$store.commit('updateMonth', value);
+        }
+      },
+      date: {
+        get() {
+          return this.$store.getters.date;
+        },
+        set(value) {
+          this.$store.commit('updateDate', value);
+        }
+      }
     },
     mounted() {
       this.japaneseCalender = this.genereate();

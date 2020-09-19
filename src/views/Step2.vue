@@ -39,12 +39,35 @@
   export default {
     data() {
       return {
-        q1: '',
-        q2: '',
-        q3: '',
         showQ2: false,
         showQ3: false
       };
+    },
+    computed: {
+      q1: {
+        get() {
+          return this.$store.getters.q1;
+        },
+        set(value) {
+          this.$store.commit('updateQ1', value);
+        }
+      },
+      q2: {
+        get() {
+          return this.$store.getters.q2;
+        },
+        set(value) {
+          this.$store.commit('updateQ2', value);
+        }
+      },
+      q3: {
+        get() {
+          return this.$store.getters.q3;
+        },
+        set(value) {
+          this.$store.commit('updateQ3', value);
+        }
+      }
     },
     methods: { 
       nextPage() {
