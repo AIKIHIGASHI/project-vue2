@@ -5,16 +5,16 @@
       <div class="info-box">
         <p>現在、生命保険に加入されていますか？</p>
         <div div class="radio">
-          <input type="radio" value="はい" @click="showQ2 = true" v-model="q1">はい
-          <input type="radio" value="いいえ" @click="showQ2 = true" v-model="q1">いいえ
+          <input type="radio" value="はい" @click="showQ2 = true" v-model="userDetail.q1">はい
+          <input type="radio" value="いいえ" @click="showQ2 = true" v-model="userDetail.q1">いいえ
         </div>
         <transition name="fade">
           <p v-if="showQ2">現在入院中ですか。または、最近3ヶ月以内に医師の診察・検査の結果、入院・手術を進められたことはありますか？</p>
         </transition>
         <transition name="fade">
           <div v-if="showQ2" class="radio">
-            <input type="radio" value="はい"   @click="showQ3 = true" v-model="q2">はい
-            <input type="radio" value="いいえ" @click="showQ3 = true" v-model="q2">いいえ
+            <input type="radio" value="はい"   @click="showQ3 = true" v-model="userDetail.q2">はい
+            <input type="radio" value="いいえ" @click="showQ3 = true" v-model="userDetail.q2">いいえ
           </div>
         </transition>
         <transition name="fade">
@@ -22,8 +22,8 @@
         </transition>
         <transition name="fade">
           <div v-if="showQ3" class="radio">
-            <input type="radio" value="はい" v-model="q3">はい
-            <input type="radio" value="いいえ" v-model="q3">いいえ
+            <input type="radio" value="はい" v-model="userDetail.q3">はい
+            <input type="radio" value="いいえ" v-model="userDetail.q3">いいえ
           </div>
         </transition>
       </div>
@@ -39,9 +39,11 @@
   export default {
     data() {
       return {
-        q1: '',
-        q2: '',
-        q3: '',
+        userDetail: {
+          q1: '',
+          q2: '',
+          q3: ''
+        },
         showQ2: false,
         showQ3: false
       };
@@ -51,6 +53,7 @@
         if (this.q1 === '' || this.q2 === '' || this.q3 === '') {
           alert('未入力箇所があります');
         } else {
+          this.$store.commit('setUserDetail', this.userDetail)
           this.$router.push('/step3');
         }
       }
