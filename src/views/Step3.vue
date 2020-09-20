@@ -5,28 +5,32 @@
       <div class="info-box">
         <p>-ご相談内容-</p>
         <div>
-          <textarea v-model="consultation"></textarea>
+          <textarea v-model="userDetail.consultation"></textarea>
         </div>
       </div>
     </div> 
     <div class="button-box">
       <router-link class="button is-success" to="/step2"><font-awesome-icon class="angle-left" icon="angle-left"/>前に戻る</router-link>
-      <router-link class="button is-success" to="/step4">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
+      <router-link class="button is-success" to="/step4" @click.native="setUserDetail()">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    computed: {
-      consultation: {
-        get() {
-          return this.$store.getters.consultation;
+    data() {
+      return {
+        userDetail: {
+          consultation: ''
         },
-        set(value) {
-          this.$store.commit('updateConsultation', value);
-        }
-      }
+        showQ2: false,
+        showQ3: false
+      };
+    },
+    methods: {
+      setUserDetail() {
+        this.$store.commit('setUserDetail', this.userDetail)
+      },
     }
   };
 </script>

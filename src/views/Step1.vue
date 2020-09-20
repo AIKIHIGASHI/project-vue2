@@ -5,29 +5,29 @@
       <div class="info-box">
         <p>-性別-</p>
         <div class="radio">
-          <input type="radio" value="男性" v-model="gender">男性
-          <input type="radio" value="女性" v-model="gender">女性
+          <input type="radio" value="男性" v-model="userDetail.gender">男性
+          <input type="radio" value="女性" v-model="userDetail.gender">女性
         </div>
         <p>-生年月日-</p>
         <div class="select">
-          <select v-model="year">
+          <select v-model="userDetail.year">
             <option v-for="calender in japaneseCalender" :key="calender.year" :value="calender.year">{{ calender.label }}</option>
           </select>
         </div><span>年</span>
         <div class="select">
-          <select v-model="month">
+          <select v-model="userDetail.month">
             <option v-for="n in lastMonth" :key="n" :value="n">{{ n }}</option>月
           </select>
         </div><span>月</span>
         <div class="select">
-          <select v-model="date">
+          <select v-model="userDetail.date">
             <option v-for="n in lastDate()" :key="n" :value="n">{{ n }}</option>
           </select>
         </div><span>日</span>
       </div>
     </div>
     <div class="button-box">
-      <router-link class="button is-success" to="/step2">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
+      <router-link class="button is-success" to="/step2" @click.native="setUserDetail()">次に進む<font-awesome-icon class="angle-right" icon="angle-right"/></router-link>
     </div>
   </div>
 </template>
@@ -36,48 +36,23 @@
   export default {
     data() {
       return {
+        userDetail: {
+          gender: '男性',
+          year: 1990,
+          month: 1,
+          date: 1,
+        },
         lastMonth: 12,
         japaneseCalender: []
       };
-    },
-    computed: {
-      gender: {
-        get() {
-          return this.$store.getters.gender;
-        },
-        set(value) {
-          this.$store.commit('updateGender', value);
-        }
-      },
-      year: {
-        get() {
-          return this.$store.getters.year;
-        },
-        set(value) {
-          this.$store.commit('updateYear', value);
-        }
-      },
-      month: {
-        get() {
-          return this.$store.getters.month;
-        },
-        set(value) {
-          this.$store.commit('updateMonth', value);
-        }
-      },
-      date: {
-        get() {
-          return this.$store.getters.date;
-        },
-        set(value) {
-          this.$store.commit('updateDate', value);
-        }
-      }
     },
     mounted() {
       this.japaneseCalender = this.genereate();
     },
     methods: {
+      setUserDetail() {
+        this.$store.commit('setUserDetail', this.userDetail)
+      },
       genereate() {
         const japaneseCalender = [];
         for (let y = 1930; y <= 2020; y++) {
@@ -92,7 +67,7 @@
         return japaneseCalender;
       },
       lastDate() {
-        return new Date(this.year, this.month, 0).getDate();
+        return new Date(this.userDetail.year, this.userDetail.month, 0).getDate();
       }
     }
   };
